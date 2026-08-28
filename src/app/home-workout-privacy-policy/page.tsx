@@ -6,7 +6,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 const APP_NAME = 'Home Workout Planner';
-const PACKAGE = 'com.elbaye.home_workout';
+const PACKAGE = 'com.home.workout.planner';
 const UPDATED = 'August 28, 2026';
 
 export const metadata: Metadata = {
