@@ -90,7 +90,18 @@ export async function getContributions(): Promise<Contributions | null> {
     });
     if (!res.ok) return null;
 
-    const json = await res.json();
+    const json = (await res.json()) as {
+      data?: {
+        user?: {
+          contributionsCollection?: {
+            contributionCalendar?: {
+              totalContributions: number;
+              weeks: { contributionDays: Record<string, unknown>[] }[];
+            };
+          };
+        };
+      };
+    };
     const cal = json?.data?.user?.contributionsCollection?.contributionCalendar;
     if (!cal) return null;
 

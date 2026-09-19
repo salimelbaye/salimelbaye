@@ -15,6 +15,14 @@ npm run dev
 
 Open http://localhost:3000
 
+## The private app
+
+`salimelbaye.com/us` is a private, password-protected app for two people, built on the same
+Next.js app, Cloudflare Worker and deploy as this site. It has its own layout, theme and
+database and shares no chrome with the public pages, whose URLs are unchanged.
+
+Setup, architecture and the security model: [docs/us-private-app.md](docs/us-private-app.md).
+
 ## Where to edit things
 
 | What | Where |

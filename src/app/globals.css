@@ -171,3 +171,106 @@
     mask-image: radial-gradient(120% 78% at 50% 0%, #000 5%, transparent 72%);
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Private app (/us). Everything here is scoped to .us-app so the public
+   portfolio above is untouched.
+   --------------------------------------------------------------------------- */
+@layer components {
+  .us-app {
+    --us-nav-h: 64px;
+    background: #0a090b;
+    color: #f3eeec;
+    min-height: 100dvh;
+    /* Never let a long title stretch the viewport on a phone. */
+    overflow-x: hidden;
+  }
+
+  /* Soft warmth from the top, so the near-black never reads as flat grey. */
+  .us-ambient::before {
+    content: '';
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 55vh;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(90% 62% at 50% -8%, rgba(208, 140, 134, 0.11), transparent 68%),
+      radial-gradient(70% 45% at 88% 4%, rgba(214, 164, 92, 0.055), transparent 70%);
+  }
+
+  .us-surface {
+    background: linear-gradient(180deg, rgba(29, 25, 34, 0.68), rgba(16, 14, 18, 0.72));
+    border: 1px solid rgba(236, 220, 216, 0.09);
+    border-radius: 20px;
+  }
+
+  .us-inset {
+    background: rgba(236, 220, 216, 0.035);
+    border: 1px solid rgba(236, 220, 216, 0.07);
+  }
+
+  .us-hairline {
+    border-top: 1px solid rgba(236, 220, 216, 0.08);
+  }
+
+  /* Bottom bar sits above the iPhone home indicator. */
+  .us-safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .us-scroll-pad {
+    padding-bottom: calc(var(--us-nav-h) + env(safe-area-inset-bottom, 0px) + 28px);
+  }
+
+  .us-eyebrow {
+    @apply font-mono text-[10.5px] font-medium uppercase tracking-[0.18em] text-us-dim;
+  }
+
+  /* Inputs: one definition, used by every form in the app. */
+  .us-field {
+    @apply w-full rounded-[13px] border border-us-line bg-[rgba(236,220,216,0.04)] px-4 py-3
+           text-[16px] text-us-ink placeholder:text-us-dim
+           transition-[border-color,background-color] duration-200;
+    /* 16px keeps iOS Safari from zooming the viewport on focus. */
+  }
+  .us-field:focus {
+    @apply border-[rgba(208,140,134,0.45)] bg-[rgba(236,220,216,0.06)] outline-none;
+  }
+  select.us-field {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, #a79b9a 50%),
+      linear-gradient(135deg, #a79b9a 50%, transparent 50%);
+    background-position: right 18px center, right 13px center;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+  }
+
+  .us-label {
+    @apply mb-1.5 block text-[12.5px] font-medium text-us-muted;
+  }
+
+  /* Focus ring, warm instead of the portfolio's blue. */
+  .us-app :focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px #0a090b,
+      0 0 0 4px rgba(208, 140, 134, 0.6);
+    border-radius: 10px;
+  }
+
+  .us-app ::selection {
+    background: rgba(208, 140, 134, 0.3);
+  }
+
+  /* Text written by us, rendered as plain text — never HTML. */
+  .us-prose {
+    @apply whitespace-pre-wrap break-words text-[15px] leading-[1.68] text-us-muted;
+  }
+}
+
+/* The private app owns the whole viewport, including the iOS overscroll area,
+   so the portfolio's blue never flashes behind a rubber-band scroll. */
+html:has(.us-app),
+html:has(.us-app) body {
+  background: #0a090b;
+}

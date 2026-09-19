@@ -1,0 +1,11 @@
+# Copy to .dev.vars (git-ignored) for local development.
+# In production these are Cloudflare secrets: npx wrangler secret put <NAME>
+
+# Required to claim an account at /us/claim. Generate with:
+#   node -e "console.log(require('crypto').randomBytes(24).toString('base64url'))"
+SETUP_TOKEN=replace-me-with-at-least-16-characters
+
+PARTNER_A_NAME=Salim
+PARTNER_A_EMAIL=salim@example.com
+PARTNER_B_NAME=Hajar
+PARTNER_B_EMAIL=hajar@example.com

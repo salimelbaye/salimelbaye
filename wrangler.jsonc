@@ -1,0 +1,51 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+
+  // This is the Worker already serving salimelbaye.com (custom domain
+  // salimelbaye.com -> service "salimelbaye", production). Deploying with this
+  // config UPDATES that Worker. Changing the name would create a second Worker
+  // and leave the live site on the old one.
+  "name": "salimelbaye",
+  "main": ".open-next/worker.js",
+
+  // Matches the deployed Worker's date exactly, so promoting a new version
+  // changes the application code and nothing about the runtime.
+  "compatibility_date": "2026-08-31",
+  // nodejs_compat is required by @opennextjs/cloudflare: the server bundle
+  // imports node:async_hooks, node:buffer, node:crypto, node:stream and others.
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+
+  // Every binding below already exists on the live Worker except DB. They are
+  // all still referenced by the build, so none may be dropped: ASSETS serves
+  // the static files, IMAGES backs the /_next/image optimiser the public site's
+  // portrait depends on, and WORKER_SELF_REFERENCE is how OpenNext revalidates.
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+
+  "images": {
+    "binding": "IMAGES"
+  },
+
+  "services": [
+    {
+      // The service name must equal the Worker name.
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "salimelbaye",
+      "environment": "production"
+    }
+  ],
+
+  // The private app at /us. Nothing on the public site reads it.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "hajar-salim",
+      "database_id": "04c593c5-1d27-473d-9b95-e57f8477c360",
+      "migrations_dir": "migrations"
+    }
+  ],
+
+  "observability": { "enabled": true }
+}
