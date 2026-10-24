@@ -7,6 +7,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: site.url, lastModified: now, changeFrequency: 'monthly', priority: 1 },
     { url: `${site.url}/resume`, lastModified: now, changeFrequency: 'yearly', priority: 0.7 },
     { url: `${site.url}/home-workout-privacy-policy`, lastModified: now, changeFrequency: 'yearly', priority: 0.4 },
+    // Served by its own path-scoped Worker (Projects/boxer-ai-privacy), not by this app.
+    { url: `${site.url}/boxer-ai-privacy/`, lastModified: now, changeFrequency: 'yearly', priority: 0.4 },
     ...projects.map((p) => ({
       url: `${site.url}${p.href}`,
       lastModified: now,
