@@ -5,16 +5,16 @@ import { site } from '@/lib/site';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-const APP_NAME = 'Home Workout Planner';
+const APP_NAME = 'AI Workout Planner';
 const PACKAGE = 'com.home.workout.planner';
-const UPDATED = 'August 28, 2026';
+const UPDATED = 'October 30, 2026';
 
 export const metadata: Metadata = {
   // `absolute` opts out of the root layout's "%s — Salim Elbaye" template:
   // this URL is registered in Google Play, where the app's own name is what
   // should read first.
   title: { absolute: `Privacy Policy — ${APP_NAME}` },
-  description: `How ${APP_NAME} (${PACKAGE}) handles data. The app has no accounts and no backend. Meta Audience Network is the only advertising provider, and no advertisements are served while no consent platform is connected.`,
+  description: `How ${APP_NAME} (${PACKAGE}) handles data. The app has no accounts and no backend. Ads are delivered through Unity LevelPlay with Unity Ads and Meta Audience Network; in the EEA, the UK and Switzerland they are enabled only after you allow them.`,
   alternates: { canonical: '/home-workout-privacy-policy' },
   openGraph: {
     type: 'article',
@@ -81,7 +81,7 @@ function Clause({ id, title, children }: { id: string; title: string; children: 
 const CLAUSES = [
   ['introduction', 'Introduction'],
   ['data-processed', 'Information that may be processed'],
-  ['advertising', 'Advertising and Meta Audience Network'],
+  ['advertising', 'Advertising partners'],
   ['ad-formats', 'Rewarded and interstitial advertisements'],
   ['consent', 'Consent and your privacy choices'],
   ['use', 'How information is used'],
@@ -165,9 +165,13 @@ export default function PrivacyPolicyPage() {
                 server operated by the developer.
               </P>
               <P>
-                Because the app is supported by advertising rather than payment, it connects to a
-                third-party advertising provider. That connection is the only reason the app uses
-                the internet, and it is the main subject of this policy.
+                The app is free and is supported by advertising. The advertising software built
+                into the app connects to the advertising partners described in{' '}
+                <a href="#advertising" className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent-blue">
+                  section 3
+                </a>
+                . That connection is the only reason the app uses the internet, and it is the main
+                subject of this policy.
               </P>
               <P>
                 This document describes the developer&apos;s own practices and what the app does. It
@@ -182,42 +186,122 @@ export default function PrivacyPolicyPage() {
                   The developer does not operate a backend and does not collect personal
                   information from you directly.
                 </strong>{' '}
-                There is nowhere for the app to send your details, because no such service exists.
+                The app&apos;s own code sends nothing over the internet; all of its network
+                traffic comes from the advertising software described below.
               </P>
               <P>Information the app creates stays on your device. That includes:</P>
               <UL>
-                <LI>Your completed workout history, streaks and totals.</LI>
                 <LI>
-                  Preferences you set — body weight, units, theme, sound, voice guidance and
-                  reminder time.
+                  Your completed workout history, streaks and totals, including the calorie
+                  estimate for each session.
+                </LI>
+                <LI>
+                  Preferences you set — body weight, units, theme, sound, voice guidance, reminder
+                  time and similar settings.
+                </LI>
+                <LI>
+                  Your advertising choice, if the app asked you for one (see{' '}
+                  <a href="#consent" className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent-blue">
+                    section 5
+                  </a>
+                  ).
                 </LI>
               </UL>
               <P>
-                None of this is transmitted to the developer, and it is removed when you clear your
-                workout history in Settings or uninstall the app.
+                Clearing your workout history in Settings deletes your logged sessions.
+                Uninstalling the app, or clearing its storage in your Android settings, removes
+                everything the app has stored. If backup is turned on for your device, Android may
+                include this app&apos;s data in the backup kept in your own Google account; the
+                developer has no access to that backup.
               </P>
               <P>
-                Advertising is different. When advertising is active, the advertising provider&apos;s
-                software may process information about your device in order to select, deliver and
-                measure ads. Depending on the provider, your consent choices and your device
-                settings, that may include an advertising identifier, other device identifiers, IP
-                address, device and application information, and approximate location. The developer
-                does not receive this information in an identifiable form; it is processed by the
-                advertising provider under its own policy.
+                To decide whether to ask for your advertising choice, the app checks the country of
+                your SIM card or mobile network or, if neither is available, your device&apos;s
+                region setting. This check runs on your device, needs no permission, and its result
+                is not sent anywhere by the app.
+              </P>
+              <P>
+                <strong className="font-medium text-ink">Advertising is different.</strong> When
+                advertising is enabled, the advertising partners&apos; software collects
+                information from your device and shares it with those partners, who use it to
+                select, deliver and measure ads. According to the partners&apos; own published
+                disclosures, this includes:
+              </P>
+              <UL>
+                <LI>
+                  <strong className="font-medium text-ink">Device and advertising identifiers</strong>{' '}
+                  — your Android advertising ID and app set ID, and other identifiers the partners
+                  associate with your device or with this installation of the app.
+                </LI>
+                <LI>
+                  <strong className="font-medium text-ink">IP address and approximate location</strong>{' '}
+                  — such as your country or city. The app does not request access to your
+                  device&apos;s location, so neither the app nor the advertising software can read
+                  your precise (GPS) location.
+                </LI>
+                <LI>
+                  <strong className="font-medium text-ink">Device information</strong> — such as
+                  your device model, operating system, screen size and the versions of the
+                  advertising software.
+                </LI>
+                <LI>
+                  <strong className="font-medium text-ink">Ad interactions</strong> — which ads are
+                  shown, how they are viewed, whether you tap them, and whether a rewarded video is
+                  watched to the end.
+                </LI>
+                <LI>
+                  <strong className="font-medium text-ink">Diagnostics</strong> — technical and
+                  performance information about the ads and the advertising software.
+                </LI>
+              </UL>
+              <P>
+                The advertising software also declares permission to use Android&apos;s Privacy
+                Sandbox advertising features (Topics and Attribution) on devices that support them.
+                You can manage these in your device&apos;s ad privacy settings.
+              </P>
+              <P>
+                The developer does not receive this information in an identifiable form. Each
+                partner processes it under its own privacy policy, linked in{' '}
+                <a href="#advertising" className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent-blue">
+                  section 3
+                </a>
+                .
               </P>
             </Clause>
 
-            <Clause id="advertising" title="3. Advertising and Meta Audience Network">
-              <P>
-                The app integrates <strong className="font-medium text-ink">Meta Audience Network</strong>{' '}
-                as its only advertising provider. It is not currently serving advertisements —
-                see <a href="#consent" className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent-blue">Consent and your privacy choices</a>.
-                Where an ad is shown, Meta acts as the advertising provider and processes
-                information in accordance with its own policies, which the developer does not
-                control.
-              </P>
-              <P>Meta&apos;s official information:</P>
+            <Clause id="advertising" title="3. Advertising partners">
+              <P>Ads in the app are delivered through three components:</P>
               <UL>
+                <LI>
+                  <strong className="font-medium text-ink">Unity LevelPlay</strong> (Unity) — an
+                  advertising mediation platform. When the app needs an ad, LevelPlay chooses which
+                  ad network supplies it.
+                </LI>
+                <LI>
+                  <strong className="font-medium text-ink">Unity Ads</strong> (Unity) — an
+                  advertising network.
+                </LI>
+                <LI>
+                  <strong className="font-medium text-ink">Meta Audience Network</strong> (Meta) —
+                  an advertising network.
+                </LI>
+              </UL>
+              <P>
+                Each is a third party. Its software runs inside the app, receives the information
+                described in{' '}
+                <a href="#data-processed" className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent-blue">
+                  section 2
+                </a>
+                , and uses it under its own policies, which the developer does not control.
+              </P>
+              <P>The partners&apos; official information:</P>
+              <UL>
+                <LI>
+                  <A href="https://unity.com/legal/game-player-and-app-user-privacy-policy">
+                    Unity Game Player and App User Privacy Policy
+                  </A>{' '}
+                  — covers Unity LevelPlay and Unity Ads
+                </LI>
                 <LI>
                   <A href="https://www.facebook.com/privacy/policy/">Meta Privacy Policy</A>
                 </LI>
@@ -228,8 +312,11 @@ export default function PrivacyPolicyPage() {
                 </LI>
               </UL>
               <P>
-                No advertisement is requested before advertising has been enabled by your consent
-                choice. See <a href="#consent" className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent-blue">Consent and your privacy choices</a>.
+                No advertisement is requested until advertising has been enabled. See{' '}
+                <a href="#consent" className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent-blue">
+                  section 5
+                </a>
+                .
               </P>
             </Clause>
 
@@ -239,22 +326,32 @@ export default function PrivacyPolicyPage() {
                 <strong className="font-medium text-ink">There are no banner advertisements</strong>,
                 and no ad is ever displayed during an exercise or during a rest period.
               </P>
+              <P>
+                Once advertising is enabled, the app requests advertisements in advance so that one
+                is ready when needed. Requesting an advertisement shares information described in{' '}
+                <a href="#data-processed" className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent-blue">
+                  section 2
+                </a>
+                , such as identifiers and device information, even if the advertisement is never
+                shown.
+              </P>
 
               <div className="flex flex-col gap-4 rounded-xl border border-line surface-card p-5 sm:p-6">
                 <h3 className="text-[15px] font-semibold text-ink">Interstitial advertisements</h3>
                 <UL>
+                  <LI>Shown when you start a free workout, before the session begins.</LI>
                   <LI>
-                    Shown only when leaving the post-workout summary of an eligible free workout —
-                    never mid-session, and never over your results.
+                    Shown after every third exercise you open from the exercise library, as you
+                    close it. Only exercises opened from the library are counted, and the count
+                    starts again each time the app is restarted.
                   </LI>
                   <LI>
-                    Paced by the app: a cooldown between ads, a ceiling per app run, and nothing at
-                    all until you have completed several workouts.
+                    Never shown during a workout, and never when you start a premium workout.
                   </LI>
                   <LI>
-                    If no advertisement is available, you continue and leave the screen normally.
+                    If no advertisement is ready, or one fails to load or display, your workout
+                    starts, or you carry on, as normal.
                   </LI>
-                  <LI>Premium workout sessions never show an interstitial advertisement.</LI>
                 </UL>
               </div>
 
@@ -262,15 +359,16 @@ export default function PrivacyPolicyPage() {
                 <h3 className="text-[15px] font-semibold text-ink">Rewarded advertisements</h3>
                 <UL>
                   <LI>
-                    Always started by you. A rewarded advertisement is only requested after you
-                    explicitly choose to watch one.
+                    Always started by you. A rewarded advertisement is shown only when you tap{' '}
+                    <strong className="font-medium text-ink">Watch ad &amp; start workout</strong>{' '}
+                    on a premium workout.
                   </LI>
                   <LI>
-                    Watching one in full unlocks a single premium workout session. Nothing is
-                    purchased and no payment is involved.
+                    Watching one in full unlocks that premium workout for a single session. Nothing
+                    is purchased and no payment is involved.
                   </LI>
                   <LI>
-                    The reward is granted only when the advertising provider confirms the
+                    The reward is granted only when the advertising partner confirms the
                     advertisement was completed. Closing it early grants nothing.
                   </LI>
                   <LI>
@@ -292,36 +390,61 @@ export default function PrivacyPolicyPage() {
 
             <Clause id="consent" title="5. Consent and your privacy choices">
               <P>
-                Advertising in the app is gated behind a consent check, and the app is
-                built to{' '}
-                <strong className="font-medium text-ink">fail closed</strong>: advertising
-                is enabled only on a positive result. Where consent is refused, has not
-                been determined, or cannot be established, the advertising provider is{' '}
-                <strong className="font-medium text-ink">
-                  never started and no advertisement is requested
-                </strong>
+                Whether the app asks before enabling advertising depends on the country check
+                described in{' '}
+                <a href="#data-processed" className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent-blue">
+                  section 2
+                </a>
                 .
               </P>
               <P>
                 <strong className="font-medium text-ink">
-                  In this release no consent platform is connected
-                </strong>
-                , so that check cannot return a positive result and{' '}
-                <strong className="font-medium text-ink">
-                  no advertisements are served
-                </strong>
-                . The advertising provider is not started and no advertising request is
-                made. The app is fully usable in this state.
+                  If that check indicates a country in the European Economic Area, the United
+                  Kingdom or Switzerland — or if no country can be determined —
+                </strong>{' '}
+                the app asks you before enabling advertising:
+              </P>
+              <UL>
+                <LI>
+                  Until you answer, the app does not start Unity LevelPlay, and no advertisement is
+                  requested or shown.
+                </LI>
+                <LI>
+                  If you choose <strong className="font-medium text-ink">Allow ads</strong>,
+                  advertising is enabled.
+                </LI>
+                <LI>
+                  If you choose <strong className="font-medium text-ink">No thanks</strong>, the
+                  app does not start Unity LevelPlay and no advertisement is requested or shown.
+                  The free workout library and the rest of the app remain available; premium
+                  workouts cannot be unlocked while advertising is off, because each premium
+                  session is unlocked by a rewarded advertisement.
+                </LI>
+                <LI>
+                  If you close the question without answering, nothing is enabled, and you are
+                  asked again the next time the app starts.
+                </LI>
+                <LI>
+                  Your answer is stored on your device. You can change it at any time in{' '}
+                  <strong className="font-medium text-ink">Settings → Privacy choices</strong>.
+                  Withdrawing consent stops all advertising requests and discards any advertisement
+                  already loaded; from the next time the app starts, Unity LevelPlay is not started
+                  at all.
+                </LI>
+              </UL>
+              <P>
+                <strong className="font-medium text-ink">Everywhere else,</strong> advertising is
+                enabled when the app starts, without a question, and the Privacy choices setting is
+                not shown.
               </P>
               <P>
-                Should a consent platform be connected in a future version, this page will
-                be updated before that version is released, and advertising would only
-                begin after a consent choice had actually been obtained.
+                When advertising is enabled, the app informs Unity LevelPlay that advertising is
+                permitted before starting it.
               </P>
               <P>
-                You can also limit ad personalisation at the operating-system level. On
-                Android this is normally found under Settings → Google → Ads, where you can
-                reset or delete your advertising ID. Those controls are provided by your
+                Wherever you are, you can limit ad personalisation through your device. On Android
+                this is normally under Settings → Google → Ads, or Settings → Privacy → Ads, where
+                you can reset or delete your advertising ID. These controls are provided by your
                 device and apply across apps.
               </P>
             </Clause>
@@ -336,34 +459,49 @@ export default function PrivacyPolicyPage() {
                 </LI>
                 <LI>
                   <strong className="font-medium text-ink">Serving advertising.</strong> The
-                  advertising provider uses the information it processes to select, deliver,
-                  measure and report on advertisements, and to detect invalid activity.
+                  advertising partners use the information described in{' '}
+                  <a href="#data-processed" className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent-blue">
+                    section 2
+                  </a>{' '}
+                  to select and display ads, including personalised ads where permitted; to measure
+                  and report on ad delivery and performance; to operate their advertising software;
+                  and to detect fraud and invalid activity, keep their services secure and meet
+                  their legal obligations.
                 </LI>
               </UL>
               <P>
-                The developer does not sell your information, and does not build advertising or
-                marketing profiles about you.
+                The developer does not receive the advertising partners&apos; data in an
+                identifiable form and does not itself build advertising or marketing profiles about
+                you. The developer sees only aggregated reports from the advertising platforms,
+                such as the number of ads shown and the revenue earned.
               </P>
             </Clause>
 
             <Clause id="third-parties" title="7. Third-party services">
               <P>
-                One third-party component is embedded in the app:{' '}
-                <strong className="font-medium text-ink">Meta Audience Network</strong>,
-                the advertising provider. It is the only advertising network in the app,
-                and as described above it is not started while no consent platform is
-                connected.
-              </P>
-              <P>
-                There is no analytics service, no crash-reporting service, no advertising
-                mediation layer, and no Google advertising SDK in this release.
-              </P>
-              <P>
-                Meta processes information under its own terms and privacy policy, linked in{' '}
+                Three third-party advertising components are embedded in the app:{' '}
+                <strong className="font-medium text-ink">Unity LevelPlay</strong>,{' '}
+                <strong className="font-medium text-ink">Unity Ads</strong> and{' '}
+                <strong className="font-medium text-ink">Meta Audience Network</strong>, described
+                in{' '}
                 <a href="#advertising" className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent-blue">
                   section 3
                 </a>
-                . Distribution through Google Play is also subject to Google&apos;s own policies,
+                . The advertising software also uses Google Play services components to read your
+                advertising ID and app set ID on your device.
+              </P>
+              <P>
+                There is no analytics service and no crash-reporting service in this release, and
+                no advertising network other than those listed — for example, Google AdMob is not
+                used.
+              </P>
+              <P>
+                Settings also contains links to this policy and to another app by the same
+                developer on Google Play. They open in your browser or the Google Play app, and the
+                app adds no information about you to them.
+              </P>
+              <P>
+                Distribution through Google Play is also subject to Google&apos;s own policies,
                 which apply independently of this document.
               </P>
             </Clause>
@@ -372,16 +510,18 @@ export default function PrivacyPolicyPage() {
               <P>
                 Workout history and preferences are kept on your device until you delete them.
                 Clearing your workout history in Settings removes the stored sessions, and
-                uninstalling the app removes the app&apos;s local data.
+                uninstalling the app removes all of the app&apos;s local data. Your advertising
+                choice, where one was asked for, is kept on your device until you change it or
+                remove the app&apos;s data.
               </P>
               <P>
                 A premium workout unlock earned from a rewarded advertisement is held in memory only
                 and is not written to storage, so it does not survive the session.
               </P>
               <P>
-                The developer retains nothing, because nothing is sent to the developer. Any
-                retention of advertising data is determined by the advertising provider under its
-                own policy.
+                The developer retains no personal information, because none is sent to the
+                developer. How long the advertising partners keep the information they collect is
+                decided by each partner under its own policy.
               </P>
             </Clause>
 
@@ -396,14 +536,16 @@ export default function PrivacyPolicyPage() {
 
             <Clause id="security" title="10. Security">
               <P>
-                Because the app stores its data locally and operates no backend, the security of
-                that data rests largely on your device — its lock screen, encryption and operating
-                system updates.
+                Because the app stores its own data locally and operates no backend, the security
+                of that data rests largely on your device — its lock screen, encryption and
+                operating system updates.
               </P>
               <P>
-                Network communication for advertising is handled by the advertising provider&apos;s
-                software. No method of transmission or storage is completely secure, and no absolute
-                guarantee of security can be given.
+                Network communication for advertising is handled by the advertising partners&apos;
+                software. Unity states that data collected by Unity LevelPlay and Unity Ads is
+                encrypted in transit, and the app does not relax Android&apos;s default settings,
+                which block unencrypted network connections. No method of transmission or storage
+                is completely secure, and no absolute guarantee of security can be given.
               </P>
             </Clause>
 
@@ -413,26 +555,49 @@ export default function PrivacyPolicyPage() {
                 such as access, correction, deletion, or objecting to certain processing.
               </P>
               <P>
-                Because the developer holds no personal information about you, most requests are
-                satisfied directly on your device: clearing your workout history or uninstalling the
-                app removes the app&apos;s local data, and your device&apos;s advertising controls
-                govern ad personalisation.
+                <strong className="font-medium text-ink">
+                  To request deletion of your data, or to make any other privacy request, email{' '}
+                  <a
+                    href={`mailto:${site.email}`}
+                    className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent-blue"
+                  >
+                    {site.email}
+                  </a>
+                  .
+                </strong>{' '}
+                The developer holds no personal information about you, so requests about
+                advertising data will be forwarded to the relevant partner — Unity or Meta — and
+                you will be told how to contact them directly.
               </P>
-              <P>
-                Where a request concerns information processed by the advertising provider, it is
-                best directed to that provider, whose policy is linked in{' '}
-                <a href="#advertising" className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent-blue">
-                  section 3
-                </a>
-                . You are welcome to contact the developer and any request will be forwarded or
-                answered as far as is possible.
-              </P>
+              <P>You can also act directly:</P>
+              <UL>
+                <LI>
+                  <strong className="font-medium text-ink">On your device:</strong> clearing your
+                  workout history or uninstalling the app removes the app&apos;s local data, and you
+                  can reset or delete your advertising ID in your device settings.
+                </LI>
+                <LI>
+                  <strong className="font-medium text-ink">In the app:</strong> where the app asked
+                  for your advertising choice, you can change it at any time in Settings → Privacy
+                  choices.
+                </LI>
+                <LI>
+                  <strong className="font-medium text-ink">With the partners:</strong> Unity
+                  explains how to opt out of personalised ads and request deletion of data in its
+                  Game Player and App User Privacy Policy, and Meta describes its controls in the
+                  Meta Privacy Policy. Both are linked in{' '}
+                  <a href="#advertising" className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent-blue">
+                    section 3
+                  </a>
+                  .
+                </LI>
+              </UL>
             </Clause>
 
             <Clause id="changes" title="12. Changes to this Privacy Policy">
               <P>
                 This policy may be updated as the app changes — for example if an advertising
-                provider is added or replaced, or if a consent flow is introduced. The date at the
+                partner is added or replaced, or if the consent process changes. The date at the
                 top of this page shows when it was last revised.
               </P>
               <P>
@@ -444,8 +609,8 @@ export default function PrivacyPolicyPage() {
 
             <Clause id="contact" title="13. Contact">
               <P>
-                For any question about this policy or about privacy in {APP_NAME}, please get in
-                touch.
+                For any question about this policy or about privacy in {APP_NAME}, including data
+                deletion requests, please get in touch.
               </P>
               <div className="flex flex-col gap-2 rounded-xl border border-line surface-card p-5 sm:p-6">
                 <span className="text-[15px] font-semibold text-ink">{site.name}</span>

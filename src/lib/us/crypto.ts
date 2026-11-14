@@ -8,11 +8,27 @@ import 'server-only';
  * without shipping WASM. The work factor is stored per user, so it can be
  * raised later and old hashes are transparently upgraded on next sign-in.
  *
- * At 600k iterations a verification costs ~0.5s of CPU. That fits the Workers
- * Paid limit (30s/request) but *not* the Free plan's 10ms — see README.
+ * Cloudflare's production Workers runtime rejects a single deriveBits call
+ * above 100,000 iterations ("Pbkdf2 failed: iteration counts above 100000 are
+ * not supported"). Note that local workerd does *not* enforce this, so a
+ * preview build will happily run a count that production refuses.
+ *
+ * Rather than drop the work factor to the cap, the full count is reached by
+ * chaining rounds: each round runs PBKDF2 at the cap and feeds its 256-bit
+ * output in as the key material for the next. An attacker testing a candidate
+ * password must run every round in sequence, so the work factor is the sum —
+ * the same 600,000 iterations, just expressed in six legal calls.
  */
 export const PBKDF2_ITERATIONS = 600_000;
-export const PBKDF2_ALGO = 'PBKDF2-SHA256';
+
+/** Hard limit imposed by the Workers runtime on one deriveBits call. */
+const MAX_ITERATIONS_PER_CALL = 100_000;
+
+/**
+ * Names the construction, not just the primitive, so a future change to the
+ * chaining scheme is distinguishable from a plain single-call PBKDF2 hash.
+ */
+export const PBKDF2_ALGO = 'PBKDF2-SHA256-chained-100k';
 
 const enc = new TextEncoder();
 
@@ -35,15 +51,26 @@ export async function sha256Hex(input: string): Promise<string> {
 }
 
 async function derive(password: string, salt: Uint8Array, iterations: number): Promise<string> {
-  const key = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, [
-    'deriveBits',
-  ]);
-  const bits = await crypto.subtle.deriveBits(
-    { name: 'PBKDF2', salt: salt as BufferSource, iterations, hash: 'SHA-256' },
-    key,
-    256,
-  );
-  return toHex(bits);
+  // Start from the password; every later round starts from the previous
+  // round's 256-bit output, which is already a high-entropy secret.
+  let material: BufferSource = enc.encode(password);
+  let bits: ArrayBuffer | null = null;
+  let remaining = Math.max(1, iterations);
+
+  while (remaining > 0) {
+    const round = Math.min(remaining, MAX_ITERATIONS_PER_CALL);
+    remaining -= round;
+
+    const key = await crypto.subtle.importKey('raw', material, 'PBKDF2', false, ['deriveBits']);
+    bits = await crypto.subtle.deriveBits(
+      { name: 'PBKDF2', salt: salt as BufferSource, iterations: round, hash: 'SHA-256' },
+      key,
+      256,
+    );
+    material = bits;
+  }
+
+  return toHex(bits!);
 }
 
 export type PasswordRecord = {

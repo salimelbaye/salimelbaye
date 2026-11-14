@@ -68,10 +68,13 @@ The claims below are the ones the code actually makes good on.
 - **Claiming.** Accounts start with no password. Each person claims theirs once at
   `/us/claim` using `SETUP_TOKEN` (a Cloudflare secret). The claim is guarded by both an
   application check and `WHERE claimed_at IS NULL`, so a second claim is a no-op, not a race.
-- **Passwords.** PBKDF2-HMAC-SHA256, 600,000 iterations, 128-bit random per-user salt,
-  256-bit output. The iteration count is stored per user so it can be raised later without
-  invalidating existing passwords. Compared in constant time. Never stored or logged in
-  clear. A password is stored verbatim and verified verbatim — no trimming on either side.
+- **Passwords.** PBKDF2-HMAC-SHA256, 600,000 iterations total, 128-bit random per-user
+  salt, 256-bit output. Cloudflare's production runtime refuses any single `deriveBits`
+  call above 100,000 iterations, so the count is reached by chaining six rounds of 100,000,
+  each seeded with the previous round's output. An attacker must run all six in sequence, so
+  the work factor is the full 600,000. The count is stored per user so it can be raised
+  later without invalidating existing passwords. Compared in constant time. Never stored or
+  logged in clear. A password is stored verbatim and verified verbatim — no trimming.
 - **Sessions.** 256-bit random token in an `HttpOnly; Secure; SameSite=Lax; Path=/us`
   cookie. Only `sha256(token)` is stored, so a database dump cannot be replayed as a
   session. Expiry is enforced in SQL. Changing a password destroys every session on every
@@ -105,10 +108,14 @@ The claims below are the ones the code actually makes good on.
 
 ### Known limits — read these
 
-- **Workers Paid is required.** One password verification costs roughly 0.5 s of CPU. That
+- **Workers Paid is required.** One password verification costs roughly 0.6 s of CPU. That
   fits the Paid plan's 30 s per-request limit but not the Free plan's 10 ms. On Free, sign-in
   will fail. If you ever need to run on Free, lower `PBKDF2_ITERATIONS` in
   `src/lib/us/crypto.ts` — and understand that you are weakening the hash to do it.
+- **Local workerd does not enforce the 100k PBKDF2 cap that production does.** A preview
+  build can therefore pass with a setting production rejects outright. Any change to
+  `PBKDF2_ITERATIONS` or the chaining in `crypto.ts` must be verified against the deployed
+  Worker, not just `opennextjs-cloudflare preview`.
 - **PBKDF2, not Argon2id.** Argon2id is the better algorithm, but it needs WASM on Workers.
   PBKDF2 at 600k is the strongest thing available here with zero dependencies.
 - **The minimum password length is 11, not 12.** It was lowered on purpose so the chosen

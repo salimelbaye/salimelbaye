@@ -37,6 +37,16 @@
     }
   ],
 
+  // Where OpenNext persists regenerated ISR pages. Without this the
+  // homepage's background revalidation never completes and the request is
+  // cancelled — see open-next.config.ts.
+  "kv_namespaces": [
+    {
+      "binding": "NEXT_INC_CACHE_KV",
+      "id": "12fd42be306f468e9c418b9d24deadd4"
+    }
+  ],
+
   // The private app at /us. Nothing on the public site reads it.
   "d1_databases": [
     {
