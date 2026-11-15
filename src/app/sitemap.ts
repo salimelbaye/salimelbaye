@@ -1,25 +1,21 @@
 import type { MetadataRoute } from 'next';
-import { site, projects, posts } from '@/lib/site';
+import { site, apps } from '@/lib/site';
 
+/**
+ * Only URLs that answer 200. The public site is one page plus the app privacy
+ * policies; the project, blog and resume routes it once listed were never
+ * built. /us is private and deliberately absent (robots.ts disallows it).
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   return [
+    // No trailing slash: matches the homepage's canonical tag exactly.
     { url: site.url, lastModified: now, changeFrequency: 'monthly', priority: 1 },
-    { url: `${site.url}/resume`, lastModified: now, changeFrequency: 'yearly', priority: 0.7 },
-    { url: `${site.url}/home-workout-privacy-policy`, lastModified: now, changeFrequency: 'yearly', priority: 0.4 },
-    // Served by its own path-scoped Worker (Projects/boxer-ai-privacy), not by this app.
-    { url: `${site.url}/boxer-ai-privacy/`, lastModified: now, changeFrequency: 'yearly', priority: 0.4 },
-    ...projects.map((p) => ({
-      url: `${site.url}${p.href}`,
+    ...apps.map((a) => ({
+      url: `${site.url}${a.privacyUrl}`,
       lastModified: now,
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    })),
-    ...posts.map((p) => ({
-      url: `${site.url}/blog/${p.slug}`,
-      lastModified: new Date(p.date),
       changeFrequency: 'yearly' as const,
-      priority: 0.6,
+      priority: 0.4,
     })),
   ];
 }

@@ -27,6 +27,7 @@ export const site = {
 
 export const nav = [
   { label: 'Work', href: '/#work' },
+  { label: 'Apps', href: '/#apps' },
   { label: 'Code', href: '/#code' },
   { label: 'Journey', href: '/#about' },
   { label: 'Notes', href: '/#notes' },
@@ -58,7 +59,6 @@ export type Project = {
   summary: string;
   chips: string[];
   tone: 'blue' | 'purple' | 'emerald';
-  href: string;
   featured?: boolean;
 };
 
@@ -71,7 +71,6 @@ export const projects: Project[] = [
       "Turns any city and category into a clean, verified list of businesses — names, phones, sites, ratings and coordinates. Built for sales teams who need real leads instead of scraped noise.",
     chips: ['100K+ records', '40+ countries', 'Dedupe & enrich', 'CSV / JSON / API'],
     tone: 'blue',
-    href: '/projects/google-maps-data-platform',
     featured: true,
   },
   {
@@ -82,7 +81,6 @@ export const projects: Project[] = [
       'Scores available domains on brandability, length and market signals — 500 names swept in under three seconds.',
     chips: ['LLM scoring', 'Live availability', 'Bulk export'],
     tone: 'purple',
-    href: '/projects/ai-domain-discovery',
   },
   {
     slug: 'whatsapp-automation',
@@ -92,7 +90,44 @@ export const projects: Project[] = [
       'Answers routine customer messages around the clock, escalates the rest with full context, and logs every thread to the CRM.',
     chips: ['24/7 replies', 'Lead routing', 'CRM sync'],
     tone: 'emerald',
-    href: '/projects/whatsapp-automation',
+  },
+];
+
+export type App = {
+  name: string;
+  packageId: string;
+  platform: string;
+  summary: string;
+  privacyUrl: string;
+};
+
+/**
+ * Mobile apps. Each privacyUrl is the public policy URL given to Google Play
+ * Console, so change one only together with the store listing. The Boxing
+ * Coach and Boxer AI pages are served by their own path-scoped Workers
+ * (Projects/boxing-coach-privacy, Projects/boxer-ai-privacy), not by this app.
+ */
+export const apps: App[] = [
+  {
+    name: 'AI Workout Planner',
+    packageId: 'com.home.workout.planner',
+    platform: 'Android',
+    summary: 'Guided bodyweight workouts you can do at home with no equipment. No account, no sign-up.',
+    privacyUrl: '/home-workout-privacy-policy',
+  },
+  {
+    name: 'Boxing Coach: Home Training',
+    packageId: 'com.boxing.coach.hometraining',
+    platform: 'Android',
+    summary: 'Boxing training at home with no equipment. Works fully offline and collects no data.',
+    privacyUrl: '/boxing-coach-privacy/',
+  },
+  {
+    name: 'Boxer AI',
+    packageId: 'com.boxerai.boxingworkout',
+    platform: 'Android',
+    summary: 'Shadow-boxing workouts called by a coach. Camera pictures are analysed on the phone and never leave it.',
+    privacyUrl: '/boxer-ai-privacy/',
   },
 ];
 
@@ -128,45 +163,6 @@ export const journey: Milestone[] = [
     period: 'Now',
     body: 'I run my own products end to end — first line of code to first paying customer, and every support ticket in between.',
     icon: Rocket,
-  },
-];
-
-export type Post = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: string;
-  date: string;
-  readingTime: string;
-};
-
-export const posts: Post[] = [
-  {
-    slug: 'from-scraping-to-data-products',
-    title: 'Why I stopped scraping and started building data products',
-    excerpt:
-      'A scraper is a script. A data product is a promise about freshness, accuracy and support — and the second one is what people pay for.',
-    category: 'Engineering',
-    date: '2026-03-04',
-    readingTime: '6 min read',
-  },
-  {
-    slug: 'ai-features-people-keep-using',
-    title: 'Shipping an AI feature people actually keep using',
-    excerpt:
-      'Most AI features get tried once. The ones that stick remove a decision, not just a keystroke — here is the test I run before building.',
-    category: 'Product',
-    date: '2026-02-11',
-    readingTime: '8 min read',
-  },
-  {
-    slug: 'my-automation-stack',
-    title: 'The automation stack I run my business on',
-    excerpt:
-      'Every tool I use to keep a one-person software company running, what each one replaced, and the three I would drop tomorrow.',
-    category: 'Automation',
-    date: '2026-01-19',
-    readingTime: '5 min read',
   },
 ];
 
@@ -245,7 +241,12 @@ export const notes: Note[] = [
 ];
 
 export const resume = {
-  cvUrl: '/salim-elbaye-cv.pdf', // TODO(salim): add this file to /public
+  /**
+   * TODO(salim): add the PDF to /public and set this to its path, e.g.
+   * '/salim-elbaye-cv.pdf'. While it is null the download button is hidden,
+   * so the page never links to a file that does not exist.
+   */
+  cvUrl: null as string | null,
   skills: [
     { group: 'Languages', items: ['TypeScript', 'JavaScript', 'Python', 'SQL'] },
     { group: 'Frontend', items: ['React', 'Next.js', 'Tailwind CSS', 'Chrome MV3'] },

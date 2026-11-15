@@ -1,4 +1,4 @@
-import { site, projects } from './site';
+import { site, projects, apps } from './site';
 
 /** Schema.org structured data — rendered as JSON-LD in the root layout. */
 
@@ -48,6 +48,24 @@ export const projectsSchema = {
       name: p.title,
       description: p.summary,
       applicationCategory: 'BusinessApplication',
+      author: { '@id': `${site.url}/#person` },
+    },
+  })),
+};
+
+export const appsSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Mobile apps',
+  itemListElement: apps.map((a, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'MobileApplication',
+      name: a.name,
+      description: a.summary,
+      operatingSystem: a.platform,
+      applicationCategory: 'HealthApplication',
       author: { '@id': `${site.url}/#person` },
     },
   })),

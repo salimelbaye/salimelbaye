@@ -29,7 +29,6 @@ Setup, architecture and the security model: [docs/us-private-app.md](docs/us-pri
 | --- | --- |
 | All copy, projects, stats, timeline, posts | `src/lib/site.ts` |
 | Structured data (JSON-LD) | `src/lib/schema.ts` |
-| Continent outlines for the world map | `src/lib/geo.ts` |
 | Colours, type scale, shadows | `tailwind.config.ts` |
 | Base styles and component classes | `src/app/globals.css` |
 | Page composition | `src/app/page.tsx` |
@@ -37,13 +36,37 @@ Setup, architecture and the security model: [docs/us-private-app.md](docs/us-pri
 Sections live in `src/components/sections/` and read from `site.ts`, so adding a
 project or a post is a one-line change to the data — never a component edit.
 
-## Before you deploy
+## Public URLs
 
-1. Replace `site.url`, `site.email` and the social links in `src/lib/site.ts`.
-2. Add `public/og.png` at 1200×630 for OpenGraph and Twitter cards.
-3. Add a favicon set to `src/app/` (`icon.png`, `apple-icon.png`).
-4. Build the `/resume` and `/blog` routes, or point those nav links elsewhere.
-5. `npm run build` and check Lighthouse.
+Everything on salimelbaye.com is served from the root; there is no locale or
+`/us`-style prefix for the public site.
+
+| URL | Served by |
+| --- | --- |
+| `/` | this app (`src/app/(site)/page.tsx`) |
+| `/home-workout-privacy-policy` | this app, registered in Google Play |
+| `/boxing-coach-privacy/` | Worker `boxing-coach-privacy-router` (`Projects/boxing-coach-privacy`) |
+| `/boxer-ai-privacy/` | Worker `boxer-ai-privacy` (`Projects/boxer-ai-privacy`) |
+| `/app-ads.txt` | `public/app-ads.txt`, static asset, `text/plain` |
+| `/sitemap.xml`, `/robots.txt` | `src/app/sitemap.ts`, `src/app/robots.ts` |
+| `/us/*` | the private app, never indexed (see below) |
+
+`public/app-ads.txt` authorises AdMob (`google.com, pub-7680400772614815`) and
+Meta Audience Network. Both lines are live in apps, so never drop one, and keep
+the publisher and certification IDs byte-exact. `.gitattributes` pins it to LF.
+
+## Deploy
+
+Deploys are manual; pushing to GitHub does not deploy.
+
+```bash
+npx opennextjs-cloudflare build
+npx opennextjs-cloudflare preview --port 8788   # optional local check
+npx wrangler deploy
+```
+
+Roll back with `npx wrangler rollback <version-id>`
+(`npx wrangler deployments list` shows the ids).
 
 ## Notes on the design
 

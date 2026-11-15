@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Download } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { journey } from '@/lib/site';
 import { Section } from '@/components/shared/section';
 import { Reveal } from '@/components/shared/reveal';
@@ -32,8 +32,8 @@ export function Journey() {
               The through-line isn&apos;t code. It&apos;s showing up every day for something that only pays off later —
               first in uniform, then in training, now in products.
             </p>
-            <Link href="/resume" className={cn(buttonVariants({ variant: 'ghost' }), 'mt-7')}>
-              <Download /> Download resume
+            <Link href="/#resume" className={cn(buttonVariants({ variant: 'ghost' }), 'mt-7')}>
+              View resume <ArrowRight />
             </Link>
           </div>
         </Reveal>

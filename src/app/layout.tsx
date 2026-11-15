@@ -38,6 +38,14 @@ export const metadata: Metadata = {
     'data platform',
     'Next.js developer',
   ],
+  // Static files in /public. The /us layout replaces this with its own icons.
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '16x16 32x32 48x48' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
+  },
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
   alternates: { canonical: '/' },

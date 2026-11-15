@@ -27,7 +27,7 @@ export function Contact() {
               <a href={site.social.email} className={buttonVariants()}>
                 Get In Touch <ArrowRight />
               </a>
-              <Link href="/resume" className={buttonVariants({ variant: 'ghost' })}>
+              <Link href="/#resume" className={buttonVariants({ variant: 'ghost' })}>
                 View resume
               </Link>
             </div>

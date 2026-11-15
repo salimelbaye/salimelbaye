@@ -46,7 +46,6 @@ const config: Config = {
         portrait: '0 40px 90px -40px rgba(0,0,0,0.9)',
       },
       keyframes: {
-        ripple: { '0%': { r: '3', opacity: '0.75' }, '70%,100%': { r: '16', opacity: '0' } },
         breathe: { '0%,100%': { opacity: '1' }, '50%': { opacity: '0.45' } },
         'us-rise': {
           from: { opacity: '0', transform: 'translateY(8px)' },
@@ -63,7 +62,6 @@ const config: Config = {
         },
       },
       animation: {
-        ripple: 'ripple 3.2s ease-out infinite',
         breathe: 'breathe 2.6s ease-in-out infinite',
         'us-rise': 'us-rise 0.5s cubic-bezier(0.22,1,0.36,1) both',
         'us-pulse': 'us-pulse 2.8s ease-in-out infinite',

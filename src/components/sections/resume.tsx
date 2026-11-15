@@ -27,9 +27,11 @@ export function Resume() {
           eyebrow="Resume"
           title="Credentials, at a glance."
           action={
-            <a href={resume.cvUrl} download className={buttonVariants({ size: 'sm' })}>
-              <Download /> Download PDF
-            </a>
+            resume.cvUrl ? (
+              <a href={resume.cvUrl} download className={buttonVariants({ size: 'sm' })}>
+                <Download /> Download PDF
+              </a>
+            ) : undefined
           }
         />
       </Reveal>
