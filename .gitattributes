@@ -1,0 +1,2 @@
+# Crawled by ad networks: keep byte-exact LF line endings on every checkout.
+public/app-ads.txt text eol=lf
