@@ -33,7 +33,7 @@ No photo gallery, no feed, no chat — by design.
 
 ## Architecture
 
-- **Runtime** — the same Next.js 15 app as the public site, deployed to Cloudflare Workers
+- **Runtime** — the same Next.js 16 app as the public site, deployed to Cloudflare Workers
   via `@opennextjs/cloudflare`.
 - **Database** — Cloudflare D1, bound as `DB`. Schema in `migrations/`.
 - **Isolation** — public pages live in the `(site)` route group and keep the portfolio

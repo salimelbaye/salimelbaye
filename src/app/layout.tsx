@@ -73,7 +73,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${inter.variable} ${mono.variable}`}
+      // globals.css sets smooth scrolling. Next 16 stopped switching it off
+      // during route changes unless asked; this keeps navigations instant.
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <body className="min-h-screen overflow-x-hidden font-sans">{children}</body>
     </html>
   );

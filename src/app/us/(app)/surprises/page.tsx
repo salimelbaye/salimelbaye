@@ -51,6 +51,8 @@ export default async function SurprisesPage() {
           ) : (
             <ul className="space-y-2.5">
               {forMe.map((s) => {
+                // A Server Component rendered once per request: reading the clock here is intended.
+                // eslint-disable-next-line react-hooks/purity
                 const notYet = s.unlock_at !== null && s.unlock_at > Date.now();
                 return (
                   <li key={s.id}>

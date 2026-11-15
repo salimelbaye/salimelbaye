@@ -24,6 +24,8 @@ export default async function SurprisePage({ params }: { params: Promise<{ id: s
   if (!surprise) notFound();
 
   const isAuthor = surprise.author_id === user.id;
+  // A Server Component rendered once per request: reading the clock here is intended.
+  // eslint-disable-next-line react-hooks/purity
   const notYet = surprise.unlock_at !== null && surprise.unlock_at > Date.now();
 
   return (

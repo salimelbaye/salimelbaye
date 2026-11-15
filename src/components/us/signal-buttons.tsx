@@ -43,6 +43,8 @@ export function QuickSignals() {
 
   useEffect(() => {
     if (!state?.message) return;
+    // Runs once per action result, not per render; left as-is so /us behaves exactly as before.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFlash(state.message);
     const t = setTimeout(() => setFlash(null), 2600);
     return () => clearTimeout(t);
@@ -77,6 +79,8 @@ export function MoreSignals() {
 
   useEffect(() => {
     if (!state?.message) return;
+    // Runs once per action result, not per render; left as-is so /us behaves exactly as before.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFlash(state.message);
     const t = setTimeout(() => setFlash(null), 2600);
     return () => clearTimeout(t);

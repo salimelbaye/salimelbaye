@@ -4,7 +4,7 @@ Personal site of Salim Elbaye — software engineer, SaaS founder, AI automation
 
 ## Stack
 
-Next.js 15 (App Router) · React 19 · TypeScript · Tailwind CSS · shadcn/ui conventions · Framer Motion · Lucide Icons
+Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS · shadcn/ui conventions · Framer Motion · Lucide Icons
 
 ## Getting started
 

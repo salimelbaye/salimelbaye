@@ -111,7 +111,7 @@ export function Hero() {
           alt={`${site.name}, software engineer working on AI automation and cybersecurity`}
           width={900}
           height={1106}
-          priority
+          preload
           sizes="(max-width: 1024px) 100vw, 56vw"
           className="hero-photo-mask size-full object-cover object-[50%_4%] max-lg:h-auto max-lg:aspect-[900/1106]"
         />

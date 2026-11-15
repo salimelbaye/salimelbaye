@@ -11,11 +11,8 @@ export function Counter({ to, suffix = '', duration = 1400 }: { to: number; suff
   const [value, setValue] = useState(0);
 
   useEffect(() => {
-    if (!inView) return;
-    if (reduce) {
-      setValue(to);
-      return;
-    }
+    // Reduced motion skips the animation; the final value is derived below.
+    if (!inView || reduce) return;
 
     let frame = 0;
     let start: number | null = null;
@@ -29,9 +26,11 @@ export function Counter({ to, suffix = '', duration = 1400 }: { to: number; suff
     return () => cancelAnimationFrame(frame);
   }, [inView, to, duration, reduce]);
 
+  const shown = reduce && inView ? to : value;
+
   return (
     <span ref={ref} className="tabular-nums">
-      {value}
+      {shown}
       {suffix}
     </span>
   );

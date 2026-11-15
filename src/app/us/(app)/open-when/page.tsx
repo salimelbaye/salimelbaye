@@ -38,6 +38,8 @@ export default async function OpenWhenPage() {
           ) : (
             <ul className="space-y-2.5">
               {forMe.map((note) => {
+                // A Server Component rendered once per request: reading the clock here is intended.
+                // eslint-disable-next-line react-hooks/purity
                 const notYet = note.unlock_at !== null && note.unlock_at > Date.now();
                 return (
                   <li key={note.id} className="us-inset rounded-[14px] px-4 py-3.5">
