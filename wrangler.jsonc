@@ -8,6 +8,11 @@
   "name": "salimelbaye",
   "main": ".open-next/worker.js",
 
+  // Only at salimelbaye.com: no second public copy of the site (and of /us)
+  // on *.workers.dev, and no per-version preview URLs.
+  "workers_dev": false,
+  "preview_urls": false,
+
   // Matches the deployed Worker's date exactly, so promoting a new version
   // changes the application code and nothing about the runtime.
   "compatibility_date": "2026-08-31",
