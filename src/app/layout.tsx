@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     'data platform',
     'Next.js developer',
   ],
-  // Static files in /public. The /us layout replaces this with its own icons.
+  // Static files in /public.
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '16x16 32x32 48x48' },

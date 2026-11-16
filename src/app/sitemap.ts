@@ -4,7 +4,7 @@ import { site, apps } from '@/lib/site';
 /**
  * Only URLs that answer 200. The public site is one page plus the app privacy
  * policies; the project, blog and resume routes it once listed were never
- * built. /us is private and deliberately absent (robots.ts disallows it).
+ * built.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

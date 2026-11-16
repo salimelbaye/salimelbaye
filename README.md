@@ -15,13 +15,14 @@ npm run dev
 
 Open http://localhost:3000
 
-## The private app
+## The removed private app
 
-`salimelbaye.com/us` is a private, password-protected app for two people, built on the same
-Next.js app, Cloudflare Worker and deploy as this site. It has its own layout, theme and
-database and shares no chrome with the public pages, whose URLs are unchanged.
-
-Setup, architecture and the security model: [docs/us-private-app.md](docs/us-private-app.md).
+`salimelbaye.com/us` used to be a private, password-protected app for two people. It was
+removed on 2026-11-16 together with its sign-in, account setup and session code; `/us` now
+returns 404. Its data was not touched: the D1 database `hajar-salim` and every row in it
+still exist, the `DB` binding stays in `wrangler.jsonc`, and `migrations/` records the
+schema. The code (and `docs/us-private-app.md`) can be recovered from git history before
+that removal.
 
 ## Where to edit things
 
@@ -49,7 +50,6 @@ Everything on salimelbaye.com is served from the root; there is no locale or
 | `/boxer-ai-privacy/` | Worker `boxer-ai-privacy` (`Projects/boxer-ai-privacy`) |
 | `/app-ads.txt` | `public/app-ads.txt`, static asset, `text/plain` |
 | `/sitemap.xml`, `/robots.txt` | `src/app/sitemap.ts`, `src/app/robots.ts` |
-| `/us/*` | the private app, never indexed (see below) |
 
 `public/app-ads.txt` authorises AdMob (`google.com, pub-7680400772614815`) and
 Meta Audience Network. Both lines are live in apps, so never drop one, and keep

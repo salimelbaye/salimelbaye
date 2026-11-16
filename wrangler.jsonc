@@ -8,8 +8,8 @@
   "name": "salimelbaye",
   "main": ".open-next/worker.js",
 
-  // Only at salimelbaye.com: no second public copy of the site (and of /us)
-  // on *.workers.dev, and no per-version preview URLs.
+  // Only at salimelbaye.com: no second public copy of the site on
+  // *.workers.dev, and no per-version preview URLs.
   "workers_dev": false,
   "preview_urls": false,
 
@@ -20,10 +20,9 @@
   // imports node:async_hooks, node:buffer, node:crypto, node:stream and others.
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
 
-  // Every binding below already exists on the live Worker except DB. They are
-  // all still referenced by the build, so none may be dropped: ASSETS serves
-  // the static files, IMAGES backs the /_next/image optimiser the public site's
-  // portrait depends on, and WORKER_SELF_REFERENCE is how OpenNext revalidates.
+  // ASSETS serves the static files, IMAGES backs the /_next/image optimiser the
+  // public site's portrait depends on, and WORKER_SELF_REFERENCE is how
+  // OpenNext revalidates. None of them may be dropped.
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"
@@ -52,7 +51,10 @@
     }
   ],
 
-  // The private app at /us. Nothing on the public site reads it.
+  // Data from the private /us app, which has been removed from the code. No
+  // code reads this binding any more; it is kept so the database and every row
+  // in it stay attached and documented. Unbinding it would not delete the data,
+  // but `wrangler d1 delete hajar-salim` would, permanently.
   "d1_databases": [
     {
       "binding": "DB",

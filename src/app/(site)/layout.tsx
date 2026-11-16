@@ -5,8 +5,7 @@ import { personSchema, websiteSchema } from '@/lib/schema';
 
 /**
  * Chrome for the public site. Lives in a route group so it adds no URL
- * segment — every existing path is unchanged — while /us can opt out of it
- * entirely.
+ * segment, so every existing path is unchanged.
  */
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
